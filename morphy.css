@@ -1,0 +1,265 @@
+/*
+	Copyright 2020 Kermit Alexander II
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.	
+*/
+
+/*
+	root variables - modify these to configure Morphy globally
+*/
+:root {
+	/* 
+		shadow offsets - the larger these are, the "farther away" widgets will appear
+	  	they should probably be set to the same value
+    */
+	--mc-shadow-offset-x: 5px;
+	--mc-shadow-offset-y: 5px;
+	/*
+		the small offsets are used for smaller widgets, such as for progress bars
+		the larger offsets can be used for custom cards/sections of your own design
+	*/
+	--mc-shadow-offset-x-small: 2px;
+	--mc-shadow-offset-y-small: 2px;
+	--mc-shadow-offset-x-large: 17px;
+	--mc-shadow-offset-y-large: 17px;
+	/* shadow blur radius - self-explanatory, should grow roughly proportionally with the shadow offsets */
+	--mc-shadow-blur-radius: 5px;
+	--mc-shadow-blur-radius-small: 2px;
+	--mc-shadow-blur-radius-large: 25px;
+	/* shadow light color - controls the color of the "light shadow" that provides the illusion of lighting */
+	--mc-shadow-light-color: #ffffff;
+	/* shadow dark color - controls the color of regular drop shadow, also used for the inset shadow for clicked buttons */
+	--mc-shadow-dark-color: #a2a2a2;
+	/* background color for widgets */
+	--mc-bg-color: #f2f2f2;
+	/* active/inactive colors used for some input widgets (checkboxes/radio) */
+	--mc-color-active: #7de7fa;
+	--mc-color-inactive:#6d6d6d;
+	/* color used for the foreground color of the progress bar */
+	--mc-color-progress: #7dfaaf;
+	/* secondary color (currently only used to draw decoration on <select> */
+	--mc-color-secondary: var(--mc-color-inactive);
+	/* tertiary color (currently only used for highlighting table rows */
+	--mc-color-tertiary: #dbdbdb;
+	/* rounding for widgets with rounded corners */
+	--mc-border-rounded: 9px;
+}
+
+body {
+	background-color: var(--mc-bg-color);
+}
+
+button, [type="submit"] {
+	padding: 15px;
+	cursor: pointer;
+	border: none;
+	background-color: var(--mc-bg-color);
+	border-radius: var(--mc-border-rounded);
+	box-shadow: var(--mc-shadow-offset-x) var(--mc-shadow-offset-y) var(--mc-shadow-blur-radius) var(--mc-shadow-dark-color),
+				calc(var(--mc-shadow-offset-x) * -1) calc(var(--mc-shadow-offset-y) * -1) var(--mc-shadow-blur-radius) var(--mc-shadow-light-color);
+}
+button:active, [type="submit"]:active{
+	box-shadow: inset var(--mc-shadow-offset-x) var(--mc-shadow-offset-y) var(--mc-shadow-blur-radius)  var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x) * -1) calc(var(--mc-shadow-offset-y) * -1) var(--mc-shadow-blur-radius) var(--mc-shadow-light-color);
+}
+
+progress[value] {
+	height: 20px;
+	width: 250px;
+	border: none;
+	appearance: none;
+	border-radius: var(--mc-border-rounded);
+	box-shadow: inset var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small) var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+}
+progress[value]::-moz-progress-bar, progress[value]::-webkit-progress-value {
+	background-color: var(--mc-color-progress);
+	border-radius: var(--mc-border-rounded);
+	box-shadow: inset var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small) var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color);
+}
+
+[type="range"] {
+	width: 250px;
+	appearance: none;
+	background: transparent;
+	
+}
+[type="range"]::-webkit-slider-thumb {
+	appearance: none;
+}
+[type="range"]::-moz-range-thumb {
+	height: 30px;
+	width: 30px;
+	background: linear-gradient(145deg, #dadada, #ffffff);
+	box-shadow: var(--mc-shadow-offset-x) var(--mc-shadow-offset-y)  var(--mc-shadow-blur-radius) var(--mc-shadow-dark-color),
+				calc(var(--mc-shadow-offset-x) * -1) calc(var(--mc-shadow-offset-y) * -1) var(--mc-shadow-blur-radius) var(--mc-shadow-light-color);
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+}
+[type="range"]::-moz-range-track {
+	width: 250px;
+	height: 20px;
+	cursor: pointer;
+	background: var(--mc-bg-color);
+	border-radius: var(--mc-border-rounded);
+	box-shadow: inset var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small) var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+}
+
+[type="text"], textarea, pre {
+	padding: 10px;
+	border: none;
+	background-color: var(--mc-bg-color);
+	border-radius: var(--mc-border-rounded);
+	box-shadow: inset var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small) var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+}
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked,
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+	position: absolute;
+	left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label,
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label{
+	padding-left: 31px;
+	cursor: pointer;
+	position: relative;
+}
+
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before {
+	width: 20px;
+	height: 20px;
+	content: '';
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-color: var(--mc-bg-color);
+	border-radius: 5px;
+	box-shadow: var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small)  var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+}
+[type="checkbox"]:checked + label:before,
+[type="radio"]:checked + label:before {
+	box-shadow: inset var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small) var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+}
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after,
+[type="radio"]:checked + label:after{
+	width: 10px;
+	height: 10px;
+	content: '';
+	position: absolute;
+	top: 5px; left: 5px;
+	background-color: var(--mc-color-active);
+}
+[type="checkbox"]:not(:checked) + label:after {
+	background-color: var(--mc-color-inactive);
+}
+
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before {
+	border-radius: 50%;
+}
+[type="radio"]:not(:checked) + label:after,
+[type="radio"]:checked + label:after{
+	border-radius: 50%;
+}
+[type="radio"]:not(:checked) + label:after{
+	background-color: var(--mc-color-inactive);
+}
+
+/* taken from: https://codepen.io/vkjgr/pen/VYMeXp */
+select {
+	padding: 5px;
+	padding-right: 40px;
+	cursor: pointer;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	border: none;
+	box-shadow: var(--mc-shadow-offset-x) var(--mc-shadow-offset-y)  var(--mc-shadow-blur-radius) var(--mc-shadow-dark-color),
+				calc(var(--mc-shadow-offset-x) * -1) calc(var(--mc-shadow-offset-y) * -1) var(--mc-shadow-blur-radius) var(--mc-shadow-light-color);
+	border-radius: var(--mc-border-rounded);
+	background-image:
+		linear-gradient(45deg, transparent 50%, var(--mc-color-secondary) 50%),
+		linear-gradient(135deg, var(--mc-color-secondary) 50%, transparent 50%),
+		linear-gradient(to right, var(--mc-color-secondary), var(--mc-color-secondary));
+	background-position:
+		calc(100% - 20px) calc(1em + 2px),
+		calc(100% - 15px) calc(1em + 2px),
+		calc(100% - 2.5em) 0.5em;
+	background-size:
+		5px 5px,
+		5px 5px,
+		1px 1.5em;
+	background-repeat: no-repeat;
+}
+select:focus {
+	box-shadow: inset var(--mc-shadow-offset-x) var(--mc-shadow-offset-y) var(--mc-shadow-blur-radius)  var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x) * -1) calc(var(--mc-shadow-offset-y) * -1) var(--mc-shadow-blur-radius) var(--mc-shadow-light-color);
+}
+
+table {
+	padding: 10px;
+	box-shadow: inset var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small) var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+	background-color: var(--mc-bg-color);
+	border-radius: var(--mc-border-rounded);
+	text-align: left;
+}
+tr, td, th {
+	padding: 5px;
+}
+tr:nth-child(even) {
+	background-color: var(--mc-color-tertiary);
+}
+
+pre {
+	display: inline-block;
+}
+
+.mc-raised {
+	box-shadow: var(--mc-shadow-offset-x) var(--mc-shadow-offset-y) var(--mc-shadow-blur-radius) var(--mc-shadow-dark-color),
+				calc(var(--mc-shadow-offset-x) * -1) calc(var(--mc-shadow-offset-y) * -1) var(--mc-shadow-blur-radius) var(--mc-shadow-light-color);
+}
+
+.mc-raised-small {
+	box-shadow: var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small)  var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+}
+
+.mc-raised-large {
+	box-shadow: var(--mc-shadow-offset-x-large) var(--mc-shadow-offset-y-large) var(--mc-shadow-blur-radius-large) var(--mc-shadow-dark-color),
+				calc(var(--mc-shadow-offset-x-large) * -1) calc(var(--mc-shadow-offset-y-large) * -1) var(--mc-shadow-blur-radius-large) var(--mc-shadow-light-color);
+}
+
+.mc-lowered {
+	box-shadow: inset var(--mc-shadow-offset-x) var(--mc-shadow-offset-y) var(--mc-shadow-blur-radius)  var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x) * -1) calc(var(--mc-shadow-offset-y) * -1) var(--mc-shadow-blur-radius) var(--mc-shadow-light-color);
+}
+
+.mc-lowered-small {
+	box-shadow: inset var(--mc-shadow-offset-x-small) var(--mc-shadow-offset-y-small) var(--mc-shadow-blur-radius-small) var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x-small) * -1) calc(var(--mc-shadow-offset-y-small) * -1) var(--mc-shadow-blur-radius-small) var(--mc-shadow-light-color);
+	background-color: var(--mc-bg-color);
+}
+
+.mc-lowered-large {
+	box-shadow: inset var(--mc-shadow-offset-x-large) var(--mc-shadow-offset-y-large) var(--mc-shadow-blur-radius-large) var(--mc-shadow-dark-color),
+				inset calc(var(--mc-shadow-offset-x-large) * -1) calc(var(--mc-shadow-offset-y-large) * -1) var(--mc-shadow-blur-radius-large) var(--mc-shadow-light-color);
+}
