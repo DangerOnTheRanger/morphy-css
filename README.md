@@ -15,6 +15,7 @@ Screenshots
 Demo
 ----
 
+[Demo](https://dangerontheranger.github.io/morphy-css)
 
 Usage
 -----
