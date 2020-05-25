@@ -10,6 +10,7 @@ A picture's worth a thousand words - take a look at the screenshot section.
 Screenshots
 -----------
 
+![Music player](https://raw.githubusercontent.com/DangerOnTheRanger/morphy-css/master/musicplayer.jpg)
 
 Demo
 ----
